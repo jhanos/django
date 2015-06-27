@@ -53,7 +53,8 @@ class PathfinderCreatures(models.Model):
     baseAtk = models.IntegerField(blank=True, null=True)
     CMB = models.IntegerField(blank=True, null=True)
     CMD = models.IntegerField(blank=True, null=True)
-    weapon = models.ManyToManyField(PathfinderWeapon,null=True,blank=True)
+    defaultWeapon1 = models.IntegerField(blank=True, null=True)
+    defaultWeapon2 = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name

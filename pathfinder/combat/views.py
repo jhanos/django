@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from django.forms import ModelForm
 from combat.models import *
 from django.template import RequestContext
+from django.template.defaulttags import register
 
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 # Create your views here.
 
 # Default home page
@@ -51,9 +55,14 @@ def createWeapon(request):
 def display(request):
     """Page for displaying weapon"""
     #object=PathfinderWeapon.objects.all()[0]
-    objects=PathfinderWeapon.objects.all()
-    keys=PathfinderWeapon._meta.get_fields()
-    return render(request,'combat/display.html',{'object':objects,'key':keys})
+    object=PathfinderWeapon.objects.all()[0]
+    keys=[]
+    for k in PathfinderWeapon._meta.get_fields():
+        key=k.name
+        #value=object[key]()
+        keys.append(key)
+        #keys=PathfinderWeapon._meta.get_fields()
+    return render(request,'combat/display.html',{'object':object,'keys':keys})
     #return render(request,'combat/display.html',locals())
 
 
