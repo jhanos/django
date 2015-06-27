@@ -6,7 +6,7 @@ from django.db import models
 
 class PathfinderWeapon(models.Model):
     """(models for Weapon in pathfinder )"""
-    name = models.CharField(blank=True, max_length=100)
+    name = models.CharField(blank=True, max_length=100,primary_key=True)
     lightWeapon = models.BooleanField(default=True)
     damage = models.CharField(blank=True, max_length=100)
     crit = models.IntegerField(blank=True, null=True)
@@ -25,7 +25,7 @@ class PathfinderWeapon(models.Model):
 
 class PathfinderArmor(models.Model):
     """(models for Armor in pathfinder )"""
-    name = models.CharField(blank=True, max_length=100)
+    name = models.CharField(blank=True, max_length=100,primary_key=True)
     AC = models.IntegerField(blank=True, null=True)
     dexLimit = models.IntegerField(blank=True, null=True)
     magic = models.IntegerField(blank=True, null=True)
@@ -35,9 +35,13 @@ class PathfinderArmor(models.Model):
     def __str__(self):
         return self.name
 
+    def display(self):
+        all_item=(('name',self.name),('AC',self.AC),('dexLimit',self.dexLimit),('magic',self.magic),('master',self.master),('compMalus',self.compMalus))
+        return all_item
+
 class PathfinderCreatures(models.Model):
     """(models for Pathfinder Creatures without weapon)"""
-    name = models.CharField(blank=True, max_length=100)
+    name = models.CharField(blank=True, max_length=100,primary_key=True)
     AC = models.IntegerField(blank=True, null=True)
     ACtouch = models.IntegerField(blank=True, null=True)
     ACflat = models.IntegerField(blank=True, null=True)
@@ -61,3 +65,6 @@ class PathfinderCreatures(models.Model):
 
     def __str__(self):
         return self.name
+
+    def display(self):
+        all_item=(('name',self.name),('AC',self.AC),('ACtouch',self.ACtouch),('ACflat',self.ACflat),('hp',self.hp),('init',self.init),('fort',self.fort),('ref',self.ref),('will',self.will),('speed',self.speed),('str',self.str),('dex',self.dex),('con',self.con),('int',self.int),('wis',self.wis),('cha',self.cha),('baseAtk',self.baseAtk),('CMB',self.CMB),('CMD',self.CMD),('defaultWeapon1',self.defaultWeapon1),('defaultWeapon2',self.defaultWeapon2))

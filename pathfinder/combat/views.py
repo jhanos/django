@@ -54,7 +54,10 @@ def createWeapon(request):
 
 def display(request):
     """Page for displaying weapon"""
+
     #object=PathfinderWeapon.objects.all()[0]
+    type=request.GET.get('type','false')
+    name=request.GET.get('name','false')
     object=PathfinderWeapon.objects.all()[0]
     return render(request,'combat/display.html',{'object':object.display()})
     #return render(request,'combat/display.html',locals())
