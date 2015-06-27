@@ -56,13 +56,7 @@ def display(request):
     """Page for displaying weapon"""
     #object=PathfinderWeapon.objects.all()[0]
     object=PathfinderWeapon.objects.all()[0]
-    keys=[]
-    for k in PathfinderWeapon._meta.get_fields():
-        key=k.name
-        #value=object[key]()
-        keys.append(key)
-        #keys=PathfinderWeapon._meta.get_fields()
-    return render(request,'combat/display.html',{'object':object,'keys':keys})
+    return render(request,'combat/display.html',{'object':object.display()})
     #return render(request,'combat/display.html',locals())
 
 

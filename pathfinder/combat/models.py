@@ -19,6 +19,9 @@ class PathfinderWeapon(models.Model):
     def __str__(self):
         return self.name
 
+    def display(self):
+        all_item=(('name',self.name),('lightWeapon',self.lightWeapon),('damage',self.damage),('crit',self.crit),('critMulti',self.critMulti),('weaponRange',self.weaponRange),('magic',self.magic),('master',self.master))
+        return all_item
 
 class PathfinderArmor(models.Model):
     """(models for Armor in pathfinder )"""

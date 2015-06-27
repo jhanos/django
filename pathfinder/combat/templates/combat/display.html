@@ -1,6 +1,6 @@
 <table>
 {{ keys }}
-{% for key in keys %}
-<tr><td>{{ key }} </td><td>{{ object|get_item:key }}
+{% for k,v in object %}
+<tr><td>{{ k }} </td><td>{{ v }}
 {% endfor %}
 </table>
