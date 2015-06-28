@@ -1,6 +1,7 @@
 from django.shortcuts import *
 from django.http import HttpResponse
 from django.forms import ModelForm
+from django import forms
 from combat.models import *
 from django.template import RequestContext
 from django.template.defaulttags import register
@@ -29,10 +30,14 @@ class PathfinderCreatureForm(ModelForm):
         model = PathfinderCreatures
         fields = '__all__'
 
+class displayForm(forms.Form):
+    name = models.ManyToManyField(PathfinderWeapon)
+
 # View for Create creature
 def createCreature(request,name):
     """ Page for create creature in the database"""
     return render(request,'combat/date.html',locals())
+
 
 
 
@@ -53,14 +58,13 @@ def createWeapon(request):
 
 
 def display(request):
-    """Page for displaying weapon"""
-
-    #object=PathfinderWeapon.objects.all()[0]
+    """Page for displaying weapon or creature"""
     type=request.GET.get('type','false')
     name=request.GET.get('name','false')
+    form=displayForm()
     object=PathfinderWeapon.objects.all()[0]
-    return render(request,'combat/display.html',{'object':object.display()})
-    #return render(request,'combat/display.html',locals())
+    #return render(request,'combat/display.html',{'object':object.display()})
+    return render(request,'combat/display0.html',{'form':form})
 
 
 
