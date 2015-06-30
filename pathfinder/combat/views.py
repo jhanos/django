@@ -30,8 +30,15 @@ class PathfinderCreatureForm(ModelForm):
         model = PathfinderCreatures
         fields = '__all__'
 
-class displayForm(forms.Form):
-    name = models.ManyToManyField(PathfinderWeapon)
+
+class displayCreatureForm(forms.Form):
+    name = forms.ModelMultipleChoiceField(queryset=PathfinderCreatures.objects.all())
+
+class displayWeaponForm(forms.Form):
+    name = forms.ModelMultipleChoiceField(queryset=PathfinderWeapon.objects.all())
+
+class displayArmorForm(forms.Form):
+    name = forms.ModelMultipleChoiceField(queryset=PathfinderArmor.objects.all())
 
 # View for Create creature
 def createCreature(request,name):
@@ -59,12 +66,18 @@ def createWeapon(request):
 
 def display(request):
     """Page for displaying weapon or creature"""
-    type=request.GET.get('type','false')
-    name=request.GET.get('name','false')
-    form=displayForm()
-    object=PathfinderWeapon.objects.all()[0]
+    if request.method == 'POST':
+        type=request.GET.get('type','false')
+        name=request.POST.get('name','false')
+        object=PathfinderWeapon.objects.filter(name=name)[0]
+        #object=PathfinderWeapon.objects.all()[0]
+        return render(request,'combat/display.html',{'object':object.display()})
+    else:
+        WeaponForm=displayWeaponForm()
+        CreatureForm=displayCreatureForm()
+        ArmorForm=displayArmorForm()
     #return render(request,'combat/display.html',{'object':object.display()})
-    return render(request,'combat/display0.html',{'form':form})
+        return render(request,'combat/display0.html',locals())
 
 
 

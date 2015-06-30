@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
-<form action="/combat/display/" method="post">{% csrf_token %}
-{{ form.as_ul }}
-{{form}}
+<form action="/combat/display?type=weapon" method="post">{% csrf_token %}
+{{WeaponForm}}
 <input type="submit" value="display" />
 </form>
+{{name}}
