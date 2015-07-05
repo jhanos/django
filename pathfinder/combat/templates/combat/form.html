@@ -1,5 +1,5 @@
 <h1>{{title}}</h1>
-<form action="/combat/create/weapon/" method="post">{% csrf_token %}
-{{ weapon_form.as_p }}
+<form action="/combat/create/{{type}}/" method="post">{% csrf_token %}
+{{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>

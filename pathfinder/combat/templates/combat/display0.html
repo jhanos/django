@@ -3,4 +3,11 @@
 {{WeaponForm}}
 <input type="submit" value="display" />
 </form>
-{{name}}
+<form action="/combat/display?type=armor" method="post">{% csrf_token %}
+{{ArmorForm}}
+<input type="submit" value="display" />
+</form>
+<form action="/combat/display?type=creature" method="post">{% csrf_token %}
+{{CreatureForm}}
+<input type="submit" value="display" />
+</form>

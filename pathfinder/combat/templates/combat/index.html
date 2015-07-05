@@ -1,2 +1,4 @@
-<h1>{{title}}</h1>
-{{ text }}
+<h1>Index</h1>
+{% for key,value in urls %}
+<li><a href="{% url 'create' value %}">Création {{key}}</a></li>
+{% endfor%}

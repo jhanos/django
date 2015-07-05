@@ -14,23 +14,26 @@ def get_item(dictionary, key):
 # Default home page
 def home(request):
     """ Exemple de page HTML, non valide pour que l'exemple soit concis """
-    text = """<h1>Page Accueil appli jdr</h1>
-              <p>plein de liens seront présent plus tard</p>"""
-    return HttpResponse(text)
+    urls=(('creature',"creature"), ('weapon',"weapon"), ('armor',"armor"))
+    return render(request,'combat/index.html',{'urls':urls})
 
-# Class for generate a form from models
+# Class for generate a form for creature , weapon and armor models
 class PathfinderWeaponForm(ModelForm):
     class Meta:
         model = PathfinderWeapon
         fields = '__all__'
 
-# Class for generate a form from models
 class PathfinderCreatureForm(ModelForm):
     class Meta:
         model = PathfinderCreatures
         fields = '__all__'
 
+class PathfinderArmorForm(ModelForm):
+    class Meta:
+        model = PathfinderArmor
+        fields = '__all__'
 
+# class for generate a display Form for creature , weapon and armor
 class displayCreatureForm(forms.Form):
     name = forms.ModelMultipleChoiceField(queryset=PathfinderCreatures.objects.all())
 
@@ -46,10 +49,8 @@ def createCreature(request,name):
     return render(request,'combat/date.html',locals())
 
 
-
-
-# View for create Weapon
-def createWeapon(request):
+# View for create Weapon,armor and creature
+def create(request,type=None):
     """"Page for weapon creation"""
     if request.method == 'POST': # If the form has been submitted...
         form = PathfinderWeaponForm(request.POST) # A form bound to the POST data
@@ -58,10 +59,14 @@ def createWeapon(request):
             form.save()
             return HttpResponseRedirect('/combat/create/success?type=weapon&name='+name) # Redirect after POST
     else:
-        weapon_form=PathfinderWeaponForm()
-        title='Formulaire pour la creation d\'arme'
-        #return render_to_response('combat/create.html',{'title': title,'weapon_form': weapon_form},context_instance=RequestContext(request)))
-        return render_to_response('combat/form.html',{'title': title,'weapon_form': weapon_form},context_instance=RequestContext(request))
+        title='Formulaire de creation'
+        if type == 'weapon':
+            form=PathfinderWeaponForm()
+        elif type == 'creature':
+            form=PathfinderCreatureForm()
+        elif type == 'armor':
+            form=PathfinderArmorForm()
+        return render_to_response('combat/form.html',{'title': title,'form': form,'type':type},context_instance=RequestContext(request))
 
 
 def display(request):
@@ -70,13 +75,12 @@ def display(request):
         type=request.GET.get('type','false')
         name=request.POST.get('name','false')
         object=PathfinderWeapon.objects.filter(name=name)[0]
-        #object=PathfinderWeapon.objects.all()[0]
         return render(request,'combat/display.html',{'object':object.display()})
     else:
         WeaponForm=displayWeaponForm()
         CreatureForm=displayCreatureForm()
         ArmorForm=displayArmorForm()
-    #return render(request,'combat/display.html',{'object':object.display()})
+        # locals() contains all variables
         return render(request,'combat/display0.html',locals())
 
 
