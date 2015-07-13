@@ -1,3 +1,7 @@
+{% extends "combat/base2.html" %}
+
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
 <h1>{{title}}</h1>
 <form action="/combat/display?type=weapon" method="post">{% csrf_token %}
 {{WeaponForm}}
@@ -11,3 +15,4 @@
 {{CreatureForm}}
 <input type="submit" value="display" />
 </form>
+{% endblock %}

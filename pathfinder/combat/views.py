@@ -15,7 +15,7 @@ def get_item(dictionary, key):
 def home(request):
     """ Exemple de page HTML, non valide pour que l'exemple soit concis """
     urls=(('creature',"creature"), ('weapon',"weapon"), ('armor',"armor"))
-    return render(request,'combat/index.html',{'urls':urls})
+    return render(request,'combat/index.html',{'urls':urls,'active':"home"})
 
 # Class for generate a form for creature , weapon and armor models
 class PathfinderWeaponForm(ModelForm):
@@ -66,7 +66,7 @@ def create(request,type=None):
             form=PathfinderCreatureForm()
         elif type == 'armor':
             form=PathfinderArmorForm()
-        return render_to_response('combat/form.html',{'title': title,'form': form,'type':type},context_instance=RequestContext(request))
+        return render_to_response('combat/form.html',{'title': title,'form': form,'type':type,'active':"create"},context_instance=RequestContext(request))
 
 
 def display(request):
@@ -80,6 +80,7 @@ def display(request):
         WeaponForm=displayWeaponForm()
         CreatureForm=displayCreatureForm()
         ArmorForm=displayArmorForm()
+        active="display"
         # locals() contains all variables
         return render(request,'combat/display0.html',locals())
 

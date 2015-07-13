@@ -1,4 +1,8 @@
-<h1>Index</h1>
+{% extends "combat/base2.html" %}
+
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
 {% for key,value in urls %}
 <li><a href="{% url 'create' value %}">Création {{key}}</a></li>
 {% endfor%}
+{% endblock %}

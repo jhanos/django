@@ -1,6 +1,11 @@
+{% extends "combat/base2.html" %}
+
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
 <table>
 {{ keys }}
 {% for k,v in object %}
 <tr><td>{{ k }} </td><td>{{ v }}
 {% endfor %}
 </table>
+{% endblock %}
